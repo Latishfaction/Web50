@@ -1,0 +1,102 @@
+.row
+{
+    --bs-gutter-x: 0rem !important;
+}
+header
+{
+    /* border: 2px solid red; */
+    margin: 10px;
+    padding: 5px
+}
+.line
+{
+    width: 100%;
+    border-bottom: 1px solid rgb(158, 152, 152);
+}
+.extra-info
+{
+    border: 2px solid purple;
+    width: 40%;
+
+}
+.adv-sch
+{
+    /* border: 2px solid red; */
+    margin: 10px;
+    padding: 5px 10px;
+    width: 85%;
+}
+label
+{
+    /* border: 2px solid blue; */
+    padding: 5px 15px;
+    margin: 5px;
+    width: 100% !important; 
+    text-transform: capitalize;
+    display: block;
+}
+label p
+{
+    /* border: 2px solid red; */
+}
+.adv-search-btn
+{
+    width:300px !important;
+    margin: 0px 20px !important;
+    margin: 20px 0px !important;
+    margin-left: 15px !important;
+}
+p
+{
+    margin: 0px 10px;
+    display: inline;
+}
+.adv-input
+{
+    width: 100%;
+    padding: 5px 15px;
+    margin: 5px;
+    border: 1px solid #bcbcbc;
+    border-radius: 20px;
+}
+.adv-input:focus
+{
+    outline: none;
+    border: 1.5px solid #868383;
+}
+.form-lbl
+{
+    display: inline-block;
+}
+.adv-input1
+{
+    width: 45%;
+    padding: 5px 15px;
+    margin: 5px;
+    border: 1px solid #bcbcbc;
+    border-radius: 20px;
+}
+.adv-input1:focus
+{
+    outline: none;
+    border: 1.5px solid #868383;
+}
+.last-inp
+{
+    width: 51%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between ;
+}
+.main-heading
+{
+    font-size: 1.8rem;
+    margin: 15px;
+    color: #ea4335;
+}
+.heading
+{
+    font-size: 1.2rem;
+    margin: 10px;
+}

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Google Advanced Search</title>
+         <!-- Required meta tags -->
+         <meta charset="utf-8">
+         <meta name="viewport" content="width=device-width, initial-scale=1">
+
+         <!-- Bootstrap CSS -->
+         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+
+        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="adv.css">
+    </head>
+    <body>
+        <header>
+            <div class="row">
+                    <div class="col-lg-4 col-sm-4" >
+                        <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="google-logo" width="150px">
+                    </div>
+
+                    <div class="col-lg-8  col-sm-8 other-links adv-option">
+                        <ul>
+                            <li>
+                                <a href="index.html" class="search-opt">Google Search</a>
+                            </li>
+                            <li>
+                                <a href="imgSearch.html" class="search-opt">Image Search</a>
+                            </li>
+                        </ul>
+
+                    </div>
+                    
+            </div>
+        </header>
+        <div>
+            <h2>Advanced Search</h2>
+            <div class="line"></div>
+            <form action="https://google.com/search" method="GET" class="adv-sch adv-container row">
+
+
+                <label for="these-exact-words-or-phrases">
+                    <p>
+                        this exact word or phrase:
+                    </p>
+                    <input type="text" name="as_epq" class="adv-input">
+                </label>
+                <label for="any-of-these">
+                    <p>
+                        any of these words:
+                    </p>
+                    <input type="text" name="as_oq" class="adv-input">
+                </label>
+                <label for="none-of-these">
+                    <p>
+                        none of these words:
+                    </p>
+                    <input type="text" name="as_eq" class="adv-input">
+                </label>
+                <label for="number-range">
+                    <p>
+
+                        numbers ranging from:
+                    </p>
+                    <span>
+                        <input type="text" name="as_nlo">
+                        <p class="exp">
+                            to
+                        </p>
+                        <input type="text" name="as_nhi"">
+                    </span>
+                </label>
+
+                <input type="submit" value="Advanced Search" class="adv-search-btn">
+            </form>
+            <div class="extra-details">
+                <ul>
+                    <li>
+                        To do this in the search box.
+                    </li>
+                    <li>
+                        Type the important words: tri-colour rat terrier
+                    </li>
+                    <li>
+                        Put exact words in quotes: "rat terrier"
+                    </li>
+                    <li>
+                        Type OR between all the words you want: miniature OR standard
+                    </li>
+                    <li>
+                        Put a minus sign just before words that you don't want: -rodent, -"Jack Russell"
+                    </li>
+                    <li>
+                        Put two full stops between the numbers and add a unitof measurement: 10..35 kg, £300..£500, 2010..2011
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <footer>
+            <div id="footer-nav">
+                <ul class="country">
+                    <li>
+                        <a href="#">India</a>
+                    </li>
+                </ul>
+                <ul class="details">
+                    <li>
+                        <a href="#">about</a>
+                    </li>
+                    <li>
+                        <a href="#">advertising</a>
+                    </li>
+                    <li>
+                        <a href="#">business</a>
+                    </li>
+                    <li>
+                        <a href="#">how it works!</a>
+                    </li>
+                </ul>   
+                <ul class="user-settings">
+                    <li>
+                        <a href="#">privacy</a>
+                    </li>
+                    <li>
+                        <a href="#">terms</a>
+                    </li>
+                    <li>
+                        <a href="#">settings</a>
+                    </li>
+                </ul>          
+
+            </div>
+        </footer>
+        
+        
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+    </body>
+</html>

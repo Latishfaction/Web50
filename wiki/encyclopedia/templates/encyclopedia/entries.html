@@ -1,0 +1,14 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+{{title}}
+{% endblock %} 
+
+{% block body %}
+    {% if html %}
+        {{html | safe}}
+    {% else %}
+        <h2><b>{{title}}</b> does not exits 🙈</h2>
+    {% endif %}
+
+{% endblock %}

@@ -3,10 +3,11 @@
 {% block title %} Search🔍 {% endblock %} 
 
 {% block body %} 
-
-{% for s in list %}
+<div>
+    {% for s in list %}
     <a href="/{{s}}"><li>{{s}}</li></a>
 {% empty %}
     <h1>No results found🙊..</h1>
 {% endfor %}
+</div>
 {% endblock %} 

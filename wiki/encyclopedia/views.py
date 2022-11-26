@@ -2,6 +2,9 @@ from django.shortcuts import render
 import markdown
 from . import util
 from django import forms
+from django.core.files.storage import default_storage
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 class search_entry(forms.Form):
     title = forms.CharField(label="entry:")
@@ -16,6 +19,7 @@ def entryPage(request,title):
     return render(request,"encyclopedia/entries.html",{
         "title":title.capitalize(),
         "html":validate_entry(util.get_entry(title.capitalize()),title),
+        "form":search_entry(),
     })
 def validate_entry(entry,title):
     if(entry == None):
@@ -36,3 +40,40 @@ def search(request):
         return render(request,"encyclopedia/search.html",{
         "list":entries})
 
+
+#create new page
+def create(request):
+    if request.method =="POST":
+        raw_data = request.POST
+        if is_valid(raw_data):
+            fileName = raw_data['filename'].capitalize()
+            content = raw_data['content']
+            content = content.encode(encoding="UTF-8")
+
+            if default_storage.exists("entries/"+fileName+".md"):
+                #show error message
+                return render(request,"encyclopedia/create.html",{
+                    "error":True,
+                    "form":search_entry()
+                })
+            else:
+                util.save_entry(fileName, content)
+                #redirect to the index page
+                return HttpResponseRedirect(reverse("wiki:index"))
+    return render(request,"encyclopedia/create.html",{
+        "error":False,
+        "form":search_entry(),
+    })
+
+# for checking the blank fileds on textfiled and textarea
+def is_valid(raw_data):
+    filename = "".join(raw_data['filename'])
+
+    content = "".join(raw_data['content'])
+
+    space = filename.isspace() and content.isspace() and filename[0].isspace() and content[0].isspace()
+    # convert the field data into string and then check the length
+    if len(filename)>1 and len(content) >1 and not(space):
+        return True
+    else:
+        return False

@@ -1,0 +1,22 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %} 
+Create a Page 
+{% endblock %} 
+
+{% block body %}
+
+<form method="POST" action="{% url 'wiki:create' %}">
+    {% if error %}
+        <h1 id="error-msg">File already exists</h1>
+        <a href="{% url 'wiki:create' %}">Try Again</a>
+    {% else %}
+        <h1>Create a Page</h1>
+        {% csrf_token %}
+        <input type="text" placeholder="Filename" name="filename" required/>
+        <textarea rows="10" cols="30" name="content" placeholder="Write in Markdown" required></textarea>
+        <input type="submit" value="Submit"/>
+    {% endif %}
+</form>
+
+{% endblock %} 

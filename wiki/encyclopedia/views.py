@@ -18,10 +18,11 @@ def index(request):
 def entryPage(request,title):
     return render(request,"encyclopedia/entries.html",{
         "title":title.capitalize(),
-        "html":validate_entry(util.get_entry(title.capitalize()),title),
+        "html":validate_entry(util.get_entry(title.capitalize())),
         "form":search_entry(),
     })
-def validate_entry(entry,title):
+#convert markdown into HTML
+def validate_entry(entry):
     if(entry == None):
         return False
     else:
@@ -77,3 +78,32 @@ def is_valid(raw_data):
         return True
     else:
         return False
+
+
+# edit page
+def edit(request):
+    if request.method == "GET":
+        #making title accessible to the GET and POST method
+        global title
+        title = request.GET['title_name']
+        content = util.get_entry(title)
+        return render(request, "encyclopedia/edit.html",{
+            "title":title,
+            "markdown":content,
+            "form":search_entry()
+        })
+    if request.method =="POST":
+        content = request.POST['content']
+        util.save_entry(title,content)
+        return HttpResponseRedirect(reverse("wiki:index"))
+
+# random
+import random
+def random_entry(request):
+    titles = util.list_entries()
+    title = random.choice(titles)
+    entry = validate_entry(util.get_entry(title))
+    return render(request,"encyclopedia/random.html",{
+        "entry":entry,
+        "form":search_entry()
+    })

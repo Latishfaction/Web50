@@ -42,3 +42,7 @@ input[name="title"]{
 .sidebar h2 {
     margin-top: 5px;
 }
+input[name='content']{
+    width: 80%;
+    height: 80%;
+}

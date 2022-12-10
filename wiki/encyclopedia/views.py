@@ -94,7 +94,8 @@ def edit(request):
         })
     if request.method =="POST":
         content = request.POST['content']
-        util.save_entry(title,content)
+        print(content)
+        util.save_entry(title,content.strip())
         return HttpResponseRedirect(reverse("wiki:index"))
 
 # random

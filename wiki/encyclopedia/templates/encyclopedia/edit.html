@@ -8,10 +8,9 @@ Edit {{title}}
 <form method="POST" action="{% url 'wiki:edit' %}">
     <h1>Edit a Page</h1>
     {% csrf_token %}
-    <input type="text" name="title" value="{{title}}" disabled required/>
-    <!-- <textarea rows="10" cols="10" name="content" required>{{markdown}}</textarea> -->
+    <textarea rows="10" cols="10" name="content" class="content">{{markdown}}</textarea>
     
-    <input type="text" name="content" value="{{markdown}}"/>
+    <!-- <input type="text" name="content" value="{{markdown}}"/> -->
     <input type="submit" value="Submit"/>
 </form>
 {% endblock %}

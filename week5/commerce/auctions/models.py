@@ -15,8 +15,11 @@ class Category(models.Model):
 # Auctions lists
 class Listing(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="owner")
-    title = models.CharField(max_length=30)
-    description = models.TextField(max_length=300)
+    title = models.CharField(max_length=60)
+    description = models.TextField(max_length=500)
     price = models.PositiveIntegerField()
     url = models.URLField(max_length=400)
     theme = models.ForeignKey(Category, on_delete=models.CASCADE,related_name="theme")
+
+    def __str__(self):
+        return f"{self.id} : {self.title} | {self.owner}"

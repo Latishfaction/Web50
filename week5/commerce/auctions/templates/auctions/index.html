@@ -3,5 +3,21 @@
 {% block body %}
     <h2>Active Listings</h2>
 
-    TODO
+    <div class="listing-container">
+        <div class="listing-items">
+            {% for listing in activeItems %}
+                <div id="{{listing.item.id}}" class="listing-entry">
+                    <a href="{% url  'listing' listing.item.id%}">
+                        <img src="{{listing.item.url}}" alt="listing.item.title" title="{{listing.item.title}}" width="100px">
+                        <h5>{{listing.item.title}}</h5>
+                        <p>{{listing.item.description}}</p>
+                        <p>{{listing.item.price}}</p>
+                        <p>{{listing.item.theme}}</p>
+                    </a>
+                </div>
+            {% empty %}
+                <h3>No Active Listings...</h3>
+            {% endfor %}
+        </div>
+    </div>
 {% endblock %}

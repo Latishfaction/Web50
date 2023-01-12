@@ -1,23 +1,36 @@
 {% extends "auctions/layout.html" %}
+{% load humanize %}
+
+
+{% block link %}
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+{% endblock %}
 
 {% block body %}
-    <h2>Active Listings</h2>
+<h2>Active Listings</h2>
 
-    <div class="listing-container">
-        <div class="listing-items">
-            {% for listing in activeItems %}
-                <div id="{{listing.item.id}}" class="listing-entry">
-                    <a href="{% url  'listing' listing.item.id%}">
-                        <img src="{{listing.item.url}}" alt="listing.item.title" title="{{listing.item.title}}" width="100px">
-                        <h5>{{listing.item.title}}</h5>
-                        <p>{{listing.item.description}}</p>
-                        <p>{{listing.item.price}}</p>
-                        <p>{{listing.item.theme}}</p>
-                    </a>
+<div class="listing-container container">
+    <div class="listing-items text-center">
+        {% for listing in activeItems %}
+        <div id="{{listing.item.id}}" class="listing-entry shadow-sm p-3 mb-5 bg-white rounded row border">
+            <a href="{% url  'listing' listing.item.id%}">
+                <div class="list-image col-5">
+                    <img src="{{listing.item.url}}" alt="listing.item.title" title="{{listing.item.title}}" class="item-img rounded img-thumbnail img-fluid">
                 </div>
-            {% empty %}
-                <h3>No Active Listings...</h3>
-            {% endfor %}
+                <div class="content col-7">
+                    <h5 class="h5 ">{{listing.item.title}}</h5>
+                    <p class="description text-muted">{{listing.item.description}}</p>
+                    <div class="price-category">
+                        <p class="btn btn-primary lead float-right">₹ {{listing.item.price | intcomma}}</p>
+                        <p class="badge badge-pill badge-warning float-left" title="{{listing.item.theme.category}} Category"><span class="icon"><ion-icon name="pricetag"></ion-icon></span> {{listing.item.theme.category}}</p>
+                    </div>
+                </div>
+            </a>
         </div>
+        {% empty %}
+        <h3>No Active Listings...</h3>
+        {% endfor %}
     </div>
+</div>
 {% endblock %}

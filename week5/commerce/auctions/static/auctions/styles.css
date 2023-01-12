@@ -1,15 +1,17 @@
 *{
-    margin:0px;
-    padding: 0px;
+    margin:1px;
+    padding: 1px;
 }
 
-/* .listing-container{
+.listing-items{
+    border: 2px solid red;
+    width: 100%;
 }
 
-*/
 .listing-entry{
-    /* border: 2px solid black; */
+    /* border: 2px solid black !important; */
     margin: 5px;
+
 
 }
 .item-img{
@@ -21,4 +23,13 @@
     /* border:2px dotted blue; */
     float: right;
 
+}
+.container{
+    margin: 1px;
+    padding: 1px;
+}
+.img-flex{
+    /* border: 2px dotted royalblue; */
+    display: flex;
+    align-items: center;
 }

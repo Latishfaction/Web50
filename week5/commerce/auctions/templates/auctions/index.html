@@ -8,17 +8,17 @@
 {% endblock %}
 
 {% block body %}
-<h2>Active Listings</h2>
 
-<div class="listing-container container">
-    <div class="listing-items text-center">
+<div class="listing-container container-fluid">
+    <h2>Active Listings</h2>
+    <div class="listing-items row">
         {% for listing in activeItems %}
-        <div id="{{listing.item.id}}" class="listing-entry shadow-sm p-3 mb-5 bg-white rounded row border">
-            <a href="{% url  'listing' listing.item.id%}">
-                <div class="list-image col-5">
-                    <img src="{{listing.item.url}}" alt="listing.item.title" title="{{listing.item.title}}" class="item-img rounded img-thumbnail img-fluid">
+        <div id="{{listing.item.id}}" class="listing-entry shadow-sm p-3 mb-5 bg-white rounded row border col-lg-5">
+            <a href="{% url  'listing' listing.item.id%}" class="img-flex">
+                <div class="list-image col-lg-5 col-sm-7">
+                    <img src="{{listing.item.url}}" alt="listing.item.title" title="{{listing.item.title}}" class="item-img rounded img-fluid">
                 </div>
-                <div class="content col-7">
+                <div class="content col-lg-7 col-sm-5">
                     <h5 class="h5 ">{{listing.item.title}}</h5>
                     <p class="description text-muted">{{listing.item.description}}</p>
                     <div class="price-category">

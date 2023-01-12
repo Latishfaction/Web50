@@ -1,0 +1,25 @@
+Django + HTML
+    ✅ Login Page
+    ❌ (need some editing )Register Page
+
+    🌳Database Models
+        ✅ User
+        ✅ Category
+        ✅ Listing
+        ✅ Comment
+        ✅ Bid
+        ✅ AuctionListing
+        ✅ Watchlist
+    
+    ✅ Active Listing
+    ⌛ View Listing
+    ❌ Bidding System
+    ❌ Create Listing
+    ❌ Comment on Listing
+    ❌ Watchlist
+    ❌ Categories Tab
+        ❌ Active Auctions (of specific category)
+
+❌ Design of Website
+
+    

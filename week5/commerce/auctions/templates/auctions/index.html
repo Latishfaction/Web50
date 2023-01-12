@@ -15,8 +15,8 @@
         {% for listing in activeItems %}
         <div id="{{listing.item.id}}" class="listing-entry shadow-sm p-3 mb-5 bg-white rounded row border col-lg-5">
             <a href="{% url  'listing' listing.item.id%}" class="img-flex">
-                <div class="list-image col-lg-5 col-sm-7">
-                    <img src="{{listing.item.url}}" alt="listing.item.title" title="{{listing.item.title}}" class="item-img rounded img-fluid">
+                <div class="list-image col-lg-5  border col-sm-7">
+                    <img src="{{listing.item.url}}" alt="listing.item.title" title="{{listing.item.title}}" class="item-img rounded img-thumbnail img-fluid">
                 </div>
                 <div class="content col-lg-7 col-sm-5">
                     <h5 class="h5 ">{{listing.item.title}}</h5>

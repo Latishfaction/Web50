@@ -1,21 +1,12 @@
 {% extends 'auctions/layout.html' %}
+{% load static %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'auctions/listing.css' %}">
+{% endblock %}
+
 
 {% block body %}
-
-    <div class="container">
-        <div class="row">
-            <div class=" row border col-12">
-                <h1 class="h2">{{list.title}}</h1>
-                <div class="z col-5">
-                    <img src="{{list.url}}" alt="" class="img-fluid">
-                </div>
-                <div class="col-5 item-description">
-                    <p class="lead">Description</p>
-                    <p class="">{{list.description}}</p>
-                </div>
-                <span class="col-2">Similar Items</span>
-            </div>
-        </div>
-    </div>
+<h1>{{list.title}}</h1>
 
 {% endblock %}

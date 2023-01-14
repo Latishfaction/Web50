@@ -1,7 +1,6 @@
 {% extends "auctions/layout.html" %}
 {% load humanize %}
 
-
 {% block link %}
 <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
 <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
@@ -13,17 +12,18 @@
     <h2>Active Listings</h2>
     <div class="listing-items row">
         {% for listing in activeItems %}
-        <div id="{{listing.item.id}}" class="listing-entry shadow-sm p-3 mb-5 bg-white rounded row border col-lg-5">
-            <a href="{% url  'listing' listing.item.id%}" class="img-flex">
+        <div id="{{listing.item.item.id}}" class="listing-entry shadow-sm p-3 mb-5 bg-white rounded row border col-lg-5">
+            <a href="{% url  'auction_listing' listing.id %}" class="img-flex">
+                {{listing.id}}
                 <div class="list-image col-lg-5  border col-sm-7">
-                    <img src="{{listing.item.url}}" alt="listing.item.title" title="{{listing.item.title}}" class="item-img rounded img-thumbnail img-fluid">
+                    <img src="{{listing.item.item.url}}" alt="listing.item.title" title="{{listing.item.item.title}}" class="item-img rounded img-fluid">
                 </div>
                 <div class="content col-lg-7 col-sm-5">
-                    <h5 class="h5 ">{{listing.item.title}}</h5>
-                    <p class="description text-muted">{{listing.item.description}}</p>
+                    <h5 class="h5 ">{{listing.item.item.title}}</h5>
+                    <p class="description text-muted">{{listing.item.item.description}}</p>
                     <div class="price-category">
-                        <p class="btn btn-primary lead float-right">₹ {{listing.item.price | intcomma}}</p>
-                        <p class="badge badge-pill badge-warning float-left" title="{{listing.item.theme.category}} Category"><span class="icon"><ion-icon name="pricetag"></ion-icon></span> {{listing.item.theme.category}}</p>
+                        <p class="btn btn-primary lead float-right">Bid ₹ {{listing.bid_amount | intcomma}}</p>
+                        <p class="badge badge-pill badge-warning float-left" title="{{listing.item.theme.category}} Category"><span class="icon"><ion-icon name="pricetag"></ion-icon></span> {{listing.item.item.theme.category}}</p>
                     </div>
                 </div>
             </a>

@@ -12,7 +12,7 @@ Django + HTML
         ✅ Watchlist
     
     ✅ Active Listing
-    ⌛ View Listing
+    ✅ View Listing
     ❌ Bidding System
     ❌ Create Listing
     ❌ Comment on Listing

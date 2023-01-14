@@ -5,11 +5,11 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 
-from .models import User,AuctionListing,Listing
+from .models import User,AuctionListing,Bid
 
 
 def index(request):
-    lists = AuctionListing.objects.all()
+    lists = Bid.objects.all()
     return render(request, "auctions/index.html",{
         "activeItems":lists,
     })
@@ -65,8 +65,11 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
-def listings(request,id):
-    return render(request,"auctions/listings.html",{
-        "list":Listing.objects.get(pk=id),
+def auction_listings(request,id):
+    list = Bid.objects.get(pk=id)
+    # call Bid>Bid_id>AuctionListing
+    return render(request,"auctions/auction_listing.html",{
+        "list":list.item,
+        "bid":list,
         }
     )

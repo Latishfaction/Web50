@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .models import User,AuctionListing,Bid
+from .models import User,AuctionListing,Bid,Listing
 
 
 def index(request):
@@ -95,6 +95,8 @@ def place_bid(request,id,bidinfo):
             bid.bid_amount = bid_amount
             bid.old_bid = listing.item.price
             bid.save()
+            listing.price = bid_amount
+            listing.save()
             messages.success(request, 'Bid is placed successfully! ')
             return HttpResponseRedirect(reverse("auction_listing",args=(id,)))
 

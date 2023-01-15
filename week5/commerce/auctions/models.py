@@ -43,7 +43,7 @@ class Comment(models.Model):
 class AuctionListing(models.Model):
     isActive = models.BooleanField(default=False)
     item = models.ForeignKey(Listing, on_delete=models.CASCADE,related_name="active_items",null=True)
-
+    price = models.PositiveIntegerField(null=True)
     def __str__(self):
         return f"{self.id} : {self.item.title}"
 

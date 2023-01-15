@@ -66,11 +66,11 @@ def register(request):
         return render(request, "auctions/register.html")
 
 def auction_listings(request,id):
-    list = Bid.objects.get(pk=id)
-    # call Bid>Bid_id>AuctionListing
+    listing = AuctionListing.objects.get(pk=id)
+    latest_bid = list(listing.bid_item.all())
     return render(request,"auctions/auction_listing.html",{
-        "list":list.item,
-        "bid":list,
+        "list":listing,
+        "bidinfo":latest_bid[-1],
         }
     )
 

@@ -23,7 +23,7 @@
     <div class="row">
         <h2>{{list.item.title}}</h2>
         <div class="listing row col-lg-9 d-flex flex-row">
-            <img src="{{list.item.url}}" alt="{{list.title}}" class="img-fluid rounded col-lg-6">
+            <img src="{{list.item.url}}" alt="{{list.item.title}}" class="img-fluid rounded col-lg-6">
             <div class="border col-lg-6">
                 <p class="h4 ">Description</p>
                 <p class="lead">{{list.item.description}}</p>
@@ -37,13 +37,13 @@
                             <span class="input-group-text" id="inputGroup-sizing-lg">₹</span>
                         </div>
                         <input type="text" class="form-control" aria-label="Current Bid"
-                            aria-describedby="inputGroup-sizing-lg" value="{{bid.bid_amount | intcomma}}" readonly>
+                            aria-describedby="inputGroup-sizing-lg" value="{{bidinfo.bid_amount | intcomma}}" readonly>
                     </div>
-                    {% if bid.old_bid == 0 %}
-                    <small class="form-text text-muted">This is the started bid amount</small>
+                    {% if bidinfo.old_bid == 0 %}
+                    <small class="form-text text-muted">Be the frist one to bid</small>
                     {% else %}
                     <small class="form-text text-muted">Started at :
-                        ₹ {{bid.old_bid | intcomma}}</small>
+                        ₹ {{bidinfo.old_bid | intcomma}}</small>
                     {% endif %}
                 </div>
 
@@ -83,7 +83,7 @@
                 </p>
                 <div class="collapse" id="collapseExample">
                     <div class="card card-body">
-                        <form action="{% url 'place_bid' bid.id %}" method="post">
+                        <form action="#" method="post">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Enter Bid Amount</label>

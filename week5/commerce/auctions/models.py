@@ -52,7 +52,7 @@ class Bid(models.Model):
     bidder = models.ForeignKey(User, on_delete=models.CASCADE,related_name="bidder",null=True)
     item = models.ForeignKey(AuctionListing, on_delete=models.CASCADE,related_name="bid_item")
     bid_amount = models.PositiveIntegerField()
-    old_bid = models.PositiveIntegerField(default=True)
+    old_bid = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f"{self.id} : {self.bid_amount} | {self.bidder} | {self.item.item.title}"

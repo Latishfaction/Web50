@@ -9,7 +9,7 @@ from .models import User,AuctionListing,Bid
 
 
 def index(request):
-    lists = Bid.objects.all()
+    lists = AuctionListing.objects.all()
     return render(request, "auctions/index.html",{
         "activeItems":lists,
     })
@@ -73,3 +73,49 @@ def auction_listings(request,id):
         "bid":list,
         }
     )
+
+# change  to Auction
+# update the bid
+# change the auction price
+
+
+@login_required(login_url="login")
+def place_bid(request,id):
+    bid = Bid.objects.get(pk=id)
+    Message = True
+    if request.method=="POST":
+    # check if bid_amount > current bid price
+        new_amount = request.POST["bid_amount"]
+        new_amount = int(new_amount)
+        current_amount = bid.bid_amount
+        list = Bid.objects.get(pk=id)
+        if new_amount > current_amount:
+            # Add new Bid with all the fields
+            # new_bid = Bid()
+            # new_bid.bidder = User.objects.get(username=request.user.username)
+            # new_bid.item = list.item
+            # new_bid.bid_amount = new_amount
+            # new_bid.old_bid = current_amount
+            # new_bid.save()
+            # print("Bidder : ",new_bid.bidder)
+            # print("Item : ",new_bid.item)
+            # print("Updated Amount : ",new_bid.bid_amount)
+            # print("Previous AMt: ",new_bid.old_bid)
+
+            return render(request,"auctions/auction_listing.html",{
+                "list":list.item,
+                "bid":list,
+                "success":True,
+                "error":False,
+
+            }) 
+        else:
+            return render(request,"auctions/auction_listing.html",{
+                "list":list.item,
+                "bid":list,
+                "success":False,
+                "error":True,
+
+            }) 
+        return HttpResponse("Need to work")
+    # if bid error then show error message with alerts

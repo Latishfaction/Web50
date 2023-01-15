@@ -22,20 +22,13 @@
 <div class="container-fluid border  border-danger">
     <div class="row">
         <h2>{{list.item.title}}</h2>
-        <div class="listing row col-lg-9 border">
+        <div class="listing row col-lg-9 d-flex flex-row">
             <img src="{{list.item.url}}" alt="{{list.title}}" class="img-fluid rounded col-lg-6">
             <div class="border col-lg-6">
+                <p class="h4 ">Description</p>
                 <p class="lead">{{list.item.description}}</p>
                 <p>
-                <h5>
-                    <span class="badge badge-pill badge-warning"><span class="icon"><ion-icon
-                                name="pricetag"></ion-icon></span> {{list.item.theme.category}} Category</span>
-                </h5>
 
-                <h5>
-                    <span class="badge badge-pill badge-info"><span class="icon"><ion-icon
-                                name="person-circle-outline"></ion-icon></span> Owned by {{list.item.owner | capfirst}}</span>
-                </h5>
                 </p>
                 <div class="bid-container">
                     <small class="form-text text-muted">Current Bid</small>
@@ -47,36 +40,69 @@
                             aria-describedby="inputGroup-sizing-lg" value="{{bid.bid_amount | intcomma}}" readonly>
                     </div>
                     {% if bid.old_bid == 0 %}
-                        <small class="form-text text-muted">This is the started bid amount</small>
+                    <small class="form-text text-muted">This is the started bid amount</small>
                     {% else %}
-                        <small class="form-text text-muted">Started at :
+                    <small class="form-text text-muted">Started at :
                         ₹ {{bid.old_bid | intcomma}}</small>
                     {% endif %}
                 </div>
+
+                <h5>
+                    <span class="badge badge-pill badge-warning float-left"><span class="icon"><ion-icon
+                                name="pricetag"></ion-icon></span> {{list.item.theme.category}} Category</span>
+                    <span class="badge badge-pill badge-info float-right"><span class="icon"><ion-icon
+                                name="person-circle-outline"></ion-icon></span> Owned by {{list.item.owner | capfirst}}</span>
+                </h5>
             </div>
         </div>
         <div class="col-lg-3 border">
-            <h4>Similar Items</h4>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-4"></div>
-        <div class="col-6">
             <div class="place-bid">
+                <p class="h4">Start Bidding</p>
                 <p>
                     <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
                         aria-expanded="false" aria-controls="collapseExample">
-                        Place Bid
+                        Bid
                     </button>
+                </p>
+                <p>
+                    {% if success %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        Your Bid is Added.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                    {% elif error %}
+                    <div class="alert alert-danger alert-dismissible fade show " role="alert">
+                        Please Bid greater than current bid.
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                    {% endif %}
                 </p>
                 <div class="collapse" id="collapseExample">
                     <div class="card card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad
-                        squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt
-                        sapiente ea proident.
+                        <form action="{% url 'place_bid' bid.id %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Enter Bid Amount</label>
+                                <input type="number"
+                                name="bid_amount" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                <small id="emailHelp" class="form-text text-muted">*Bid must be greater than current amount</small>
+                                    <h5></h5>
+                                <input type="submit" value="Place Bid" class="btn btn-primary float-right">
+                              </div>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <h4>Similar Items</h4>
         </div>
     </div>
 </div>

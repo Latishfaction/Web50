@@ -19,7 +19,7 @@ class Listing(models.Model):
     title = models.CharField(max_length=60)
     description = models.TextField(max_length=500)
     price = models.IntegerField()
-    url = models.URLField(max_length=400)
+    url = models.URLField(max_length=400,default="https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1811/pavelstasevich181101027/pavelstasevich181101027.jpg")
     theme = models.ForeignKey(Category, on_delete=models.CASCADE,related_name="theme")
     isActive = models.BooleanField(default=False)
 

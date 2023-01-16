@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .models import User,AuctionListing,Bid,Listing
+from .models import User,AuctionListing,Bid,Listing,Category
 
 
 def index(request):
@@ -114,3 +114,28 @@ def view_listing(request,id):
     })
 
 @login_required(login_url="login")
+def create_listing(request):
+    categories = Category.objects.all()
+    return render(request,"auctions/createlisting.html",{
+        "categories" : categories,
+    })
+@login_required(login_url="login")
+def add_listing(request):
+    if request.method =="POST":
+        # fetch deatils of listing
+        new_listing = Listing()
+        new_listing.owner = User.objects.get(username=request.user.username)
+        new_listing.title  = request.POST["title"]
+        new_listing.description = request.POST["description"]
+        new_listing.price = int(request.POST["price"])
+        new_listing.theme = Category.objects.get(pk=int(request.POST["category"]))
+        
+        if len(request.POST['url']) !=0 :
+            new_listing.url = request.POST["url"]
+        
+        
+        new_listing.save()
+        return HttpResponseRedirect(reverse("show_listing"))
+
+
+

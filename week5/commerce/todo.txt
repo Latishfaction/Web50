@@ -13,8 +13,9 @@ Django + HTML
     
     ✅ Active Listing
     ✅ View Listing
-    ❌ Bidding System
+    ✅ Bidding System
     ❌ Create Listing
+    ❌ My Listing
     ❌ Comment on Listing
     ❌ Watchlist
     ❌ Categories Tab

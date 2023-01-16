@@ -21,6 +21,7 @@ class Listing(models.Model):
     price = models.IntegerField()
     url = models.URLField(max_length=400)
     theme = models.ForeignKey(Category, on_delete=models.CASCADE,related_name="theme")
+    isActive = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.id} : {self.title} | {self.owner}"
@@ -41,7 +42,6 @@ class Comment(models.Model):
 
 #live auctions
 class AuctionListing(models.Model):
-    isActive = models.BooleanField(default=False)
     item = models.ForeignKey(Listing, on_delete=models.CASCADE,related_name="active_items",null=True)
     price = models.PositiveIntegerField(null=True)
     def __str__(self):

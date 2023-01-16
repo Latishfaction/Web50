@@ -1,0 +1,38 @@
+{% extends 'auctions/layout.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'auctions/listing.css' %}">
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+{% endblock %}
+
+{% block body %}
+<div class="listing-container container-fluid">
+    <h2>My Listings</h2>
+    <div class="listing-items row">
+        {% for item in listings %}
+        <div id="{{item.id}}" class="shadow-sm p-3 mb-5 bg-white rounded row border col-lg-5">
+            <a href="{% url 'view_listing' item.id %}" class="img-flex">
+                {{item.id}}
+                <div class="list-image col-lg-5  border col-sm-7">
+                    <img src="{{item.url}}" alt="{{item.title}}" title="{{item.title}}" class="item-img rounded img-fluid">
+                </div>
+                <div class="content col-lg-7 col-sm-5">
+                    <h5 class="h5 ">{{item.title}}</h5>
+                    <p class="description text-muted">{{item.description}}</p>
+                    <div class="price-category">
+                            <p class="btn btn-primary lead float-right">Price ₹ {{item.price | intcomma}}</p>
+                        <p class="badge badge-pill badge-warning float-left" title="{{item.theme.category}} Category"><span class="icon"><ion-icon name="pricetag"></ion-icon></span> {{item.theme.category}}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% empty %}
+        <h3>Create your Listing</h3>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

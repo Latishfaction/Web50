@@ -75,11 +75,6 @@ def auction_listings(request,id):
         }
     )
 
-# change  to Auction
-# update the bid
-# change the auction price
-
-
 @login_required(login_url="login")
 def place_bid(request,id,bidinfo):
     listing = AuctionListing.objects.get(pk=id)
@@ -93,8 +88,10 @@ def place_bid(request,id,bidinfo):
             bid.bidder = User.objects.get(username=request.user.username)
             bid.item = listing
             bid.bid_amount = bid_amount
+            # saving item price as old bid
             bid.old_bid = listing.item.price
             bid.save()
+            # changing the auction price as bid
             listing.price = bid_amount
             listing.save()
             messages.success(request, 'Bid is placed successfully! ')
@@ -104,50 +101,16 @@ def place_bid(request,id,bidinfo):
             messages.error(request, 'Bid must be greater than current bid')
             return HttpResponseRedirect(reverse("auction_listing",args=(id,)))
 
-    # if bid error then show error message with alerts
+@login_required(login_url="login")
+def show_listings(request):
+    current_user = User.objects.get(username=request.user.username)
+    return render(request,"auctions/listings.html",{
+        "listings" : Listing.objects.all().filter(owner=current_user),
+    })
+@login_required(login_url="login")
+def view_listing(request,id):
+    return render(request,"auctions/view_listing.html",{
+        "listing" : Listing.objects.get(pk=id),
+    })
 
-
-
-
-
-
-
-    
-# @login_required(login_url="login")
-# def place_bid(request,id):
-#     bid = Bid.objects.get(pk=id)
-#     Message = True
-#     if request.method=="POST":
-#     # check if bid_amount > current bid price
-#         new_amount = request.POST["bid_amount"]
-#         new_amount = int(new_amount)
-#         current_amount = bid.bid_amount
-#         list = Bid.objects.get(pk=id)
-#         if new_amount > current_amount:
-#             Add new Bid with all the fields
-#             new_bid = Bid()
-#             new_bid.bidder = User.objects.get(username=request.user.username)
-#             new_bid.item = list.item
-#             new_bid.bid_amount = new_amount
-#             new_bid.old_bid = current_amount
-#             new_bid.save()
-#             print("Bidder : ",new_bid.bidder)
-#             print("Item : ",new_bid.item)
-#             print("Updated Amount : ",new_bid.bid_amount)
-#             print("Previous AMt: ",new_bid.old_bid)
-
-#             return render(request,"auctions/auction_listing.html",{
-#                 "list":list.item,
-#                 "bid":list,
-#                 "success":True,
-#                 "error":False,
-
-#             }) 
-#         else:
-#             return render(request,"auctions/auction_listing.html",{
-#                 "list":list.item,
-#                 "bid":list,
-#                 "success":False,
-#                 "error":True,
-
-#             }) 
+@login_required(login_url="login")

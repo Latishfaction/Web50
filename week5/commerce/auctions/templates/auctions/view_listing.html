@@ -1,0 +1,68 @@
+{% extends 'auctions/layout.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block link %}
+<link rel="stylesheet" href="{% static 'auctions/listing.css' %}">
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+{% endblock %}
+
+
+{% block body %}
+<div class="container-fluid border  border-danger">
+    <h2>{{listing.title}}</h2>
+    <div class="row">
+        <div class="listing row col-lg-9 d-flex flex-row">
+            <img src="{{listing.url}}" alt="{{listing.title}}" class="img-fluid rounded col-lg-6">
+            <div class="border col-lg-6">
+                <p class="h4 ">Description</p>
+                <p class="lead">{{listing.description}}</p>
+                <p>
+
+                </p>
+                <div class="bid-container">
+                    {% if listing.isActive %}
+                        <small class="form-text text-muted">Current Bid</small>
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-lg">₹</span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Current Bid"
+                                aria-describedby="inputGroup-sizing-lg" value="{{bidinfo.bid_amount | intcomma}}" readonly>
+                        </div>
+                        <small class="form-text text-muted">Started at :
+                            ₹ {{bidinfo.old_bid | intcomma}}</small>
+                    {% else %}
+                        <small class="form-text text-muted">Price</small>
+                        <div class="input-group input-group-lg">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-lg">₹</span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="price"
+                                aria-describedby="inputGroup-sizing-lg" value="{{listing.price | intcomma}}" readonly>
+                        </div>
+                    {% endif %}
+                </div>
+                
+
+                <h5>
+                    <span class="badge badge-pill badge-warning float-left"><span class="icon"><ion-icon
+                                name="pricetag"></ion-icon></span> {{listing.theme.category}} Category</span>
+                </h5>
+            </div>
+        </div>
+        <div class="col-lg-3 col-sm-12 border">
+            <h3>Auction Details</h3>
+            {% if listing.isActive %}
+                <h1>Auction is enabled.</h1>
+            {% else %}
+                <h1>Auction is disabled.</h1>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

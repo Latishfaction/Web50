@@ -16,8 +16,8 @@ class Category(models.Model):
 # Auctions lists
 class Listing(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="owner")
-    title = models.CharField(max_length=60)
-    description = models.TextField(max_length=500)
+    title = models.CharField(max_length=100)
+    description = models.TextField(max_length=1000)
     price = models.IntegerField()
     url = models.URLField(max_length=400,default="https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1811/pavelstasevich181101027/pavelstasevich181101027.jpg")
     theme = models.ForeignKey(Category, on_delete=models.CASCADE,related_name="theme")

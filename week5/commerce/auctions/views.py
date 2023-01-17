@@ -6,11 +6,11 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .models import User,AuctionListing,Bid,Listing,Category
+from .models import User,Bid,Listing,Category
 
 
 def index(request):
-    lists = AuctionListing.objects.all()
+    lists = Listing.objects.all()
     return render(request, "auctions/index.html",{
         "activeItems":lists,
     })

@@ -7,7 +7,7 @@ class User(AbstractUser):
 
 # Auction Categories
 class Category(models.Model):
-    category = models.CharField(max_length=10)
+    category = models.CharField(max_length=30)
 
     def __str__(self):
         return f"{self.id} : {self.category}"
@@ -40,22 +40,15 @@ class Comment(models.Model):
     def __str__(self):
         return f"{self.user} : {self.listing.title} from {self.listing.theme.category} "
 
-#live auctions
-class AuctionListing(models.Model):
-    item = models.ForeignKey(Listing, on_delete=models.CASCADE,related_name="active_items",null=True)
-    price = models.PositiveIntegerField(null=True)
-    def __str__(self):
-        return f"{self.id} : {self.item.title}"
 
 # bid
 class Bid(models.Model):
     bidder = models.ForeignKey(User, on_delete=models.CASCADE,related_name="bidder",null=True)
-    item = models.ForeignKey(AuctionListing, on_delete=models.CASCADE,related_name="bid_item")
-    bid_amount = models.PositiveIntegerField()
-    old_bid = models.PositiveIntegerField(default=0)
+    item = models.ForeignKey(Listing, on_delete=models.CASCADE,related_name="bid_item")
+    bid_amount = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return f"{self.id} : {self.bid_amount} | {self.bidder} | {self.item.item.title}"
+        return f"{self.id} : {self.bid_amount} | {self.bidder} | {self.item.title}"
 
 
 # Watch list

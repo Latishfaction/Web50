@@ -26,7 +26,7 @@
             {% if list.isActive %}
                 <span class="badge badge-pill badge-success"> Active</span>
             {% else %}
-                <span class="badge badge-pill badge-success">Active</span>
+                <span class="badge badge-pill badge-secondary">Inactive</span>
             {% endif %}
         </div>
         <div class="listing row col-lg-9 d-flex flex-row">
@@ -48,7 +48,15 @@
                     </div>
                     <p>
                         {% if user.is_authenticated %}
-                            <small class="form-text text-muted">Started at </small>
+                            {% if not owner and list.isActive %}
+                                {% if list.price == bid_info.bid_amount %}
+                                    <small class="form-text text-muted">Be the first one to bid</small>
+                                {% else %}
+                                    <small class="form-text text-muted">Started at : ₹ {{list.price}}</small> 
+                                {% endif %}
+                            {% else %}
+                                <small class="form-text text-muted">you are the owner</small>
+                            {% endif %}
                         {% endif %}
                     </p>
                 </div>
@@ -67,11 +75,24 @@
         <div class="col-lg-3 border">
             {% if user.is_authenticated %}
                 {% if owner %}
-                    {% if list.isActive %}
-                        disable bid
-                    {% else %}
-                        enable bid
-                    {% endif %}
+                    <div class="bid_direct">
+                        {% if list.isActive %}
+                        <form action="{% url 'disable_bid' list.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="submit" value="Disable Bid" class="btn btn-danger bid_direct">
+                        </form>
+                        <div>
+                            show largest bid
+                            bidder info
+                            bidder amount == price
+                        </div>
+                        {% else %}
+                            <form action="{% url 'enable_bid' list.id %}" method="post">
+                                {% csrf_token %}
+                                <input type="submit" value="Enable Bid" class="btn btn-success bid_direct">
+                            </form>
+                        {% endif %}
+                    </div>
                 {% else %}
                     <div class="place-bid">
                         <p class="h4">Start Bidding</p>

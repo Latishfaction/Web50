@@ -68,12 +68,33 @@ def register(request):
 
 def auction_listing_view(request,id):
     listing = Listing.objects.get(pk=id)
-
-    return render(request,"auctions/auction_list_view.html",{
+    bid_info = list(Bid.objects.all().filter(item= listing))
+    return render(request,"auctions/list_view.html",{
         "list":listing,
-        "owner": listing.owner.username == request.user.username
+        "owner": listing.owner.username == request.user.username,
+        "bid_info" : bid_info[-1],
         }
     )
+
+def disable_bid(request,id):
+    listing = Listing.objects.get(pk=id)
+    listing.isActive = False
+    listing.save()
+    return HttpResponseRedirect(reverse('auction_listing_view',args=(listing.id,)))
+
+def enable_bid(request,id):
+    listing = Listing.objects.get(pk=id)
+    # make bid on that item
+    new_bid =Bid()
+    new_bid.bidder = User.objects.get(username=request.user.username)
+    new_bid.item = listing
+    new_bid.bid_amount = listing.price
+    new_bid.save()
+    # change listing to active
+    listing.isActive = True
+    listing.save()
+    return HttpResponseRedirect(reverse('auction_listing_view',args=(listing.id,)))
+
 
 @login_required(login_url="login")
 def place_bid(request,id,bidinfo):
@@ -109,7 +130,7 @@ def show_listings(request):
     })
 @login_required(login_url="login")
 def view_listing(request,id):
-    return render(request,"auctions/view_listing.html",{
+    return render(request,"auctions/list_view.html",{
         "listing" : Listing.objects.get(pk=id),
     })
 

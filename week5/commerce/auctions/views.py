@@ -10,9 +10,9 @@ from .models import User,Bid,Listing,Category
 
 
 def index(request):
-    lists = Listing.objects.all()
+    activeListing = Listing.objects.all().filter(isActive=True)
     return render(request, "auctions/index.html",{
-        "activeItems":lists,
+        "activeItems":activeListing,
     })
 
 def login_view(request):

@@ -28,8 +28,9 @@
     margin: 1px;
     padding: 1px;
 }
-.img-flex{
-    /* border: 2px dotted royalblue; */
-    /* display: flex;
-    align-items: center;  */
+.pricetag{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 }

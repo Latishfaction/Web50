@@ -13,7 +13,7 @@
     <div class="listing-items row">
         {% for listing in activeItems %}
         <div id="{{listing.id}}" class="listing-entry shadow-sm p-3 mb-5 bg-white rounded row border col-lg-5">
-            <a href="{% url 'auction_listing' listing.id %}" class="img-flex">
+            <a href="{% url 'auction_listing_view' listing.id %}" class="img-flex">
                 {{listing.id}}
                 <div class="list-image col-lg-5  border col-sm-7">
                     <img src="{{listing.url}}" alt="listing.title" title="{{listing.title}}" class="item-img rounded img-fluid">

@@ -66,12 +66,12 @@ def register(request):
     else:
         return render(request, "auctions/register.html")
 
-def auction_listings(request,id):
-    listing = AuctionListing.objects.get(pk=id)
-    latest_bid = list(listing.bid_item.all())
-    return render(request,"auctions/auction_listing.html",{
+def auction_listing_view(request,id):
+    listing = Listing.objects.get(pk=id)
+
+    return render(request,"auctions/auction_list_view.html",{
         "list":listing,
-        "bidinfo":latest_bid[-1],
+        "owner": listing.owner.username == request.user.username
         }
     )
 

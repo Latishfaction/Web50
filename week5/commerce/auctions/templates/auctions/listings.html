@@ -11,7 +11,6 @@
 
 {% block body %}
 <div class="listing-container container-fluid">
-    <h2>My Listings</h2>
     <div class="listing-items row">
         {% for item in listings %}
         <div id="{{item.id}}" class="shadow-sm p-3 mb-5 bg-white rounded row border col-lg-5">
@@ -31,7 +30,7 @@
             </a>
         </div>
         {% empty %}
-        <h3>Create your Listing</h3>
+        <h3>Nothing Here😪</h3>
         {% endfor %}
     </div>
 </div>

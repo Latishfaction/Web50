@@ -6,7 +6,7 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
-from .models import User,Bid,Listing,Category
+from .models import User,Bid,Listing,Category,Watchlist
 
 
 def index(request):
@@ -69,10 +69,14 @@ def register(request):
 def auction_listing_view(request,id):
     listing = Listing.objects.get(pk=id)
     bid_info = list(Bid.objects.all().filter(item= listing))
+    if len(bid_info)<=0:
+        bid_info = None
+    else:
+        bid_info = bid_info[-1]
     return render(request,"auctions/list_view.html",{
         "list":listing,
         "owner": listing.owner.username == request.user.username,
-        "bid_info" : bid_info[-1],
+        "bid_info" : bid_info,
         }
     )
 
@@ -131,7 +135,8 @@ def show_listings(request):
 @login_required(login_url="login")
 def view_listing(request,id):
     return render(request,"auctions/list_view.html",{
-        "listing" : Listing.objects.get(pk=id),
+        "list" : Listing.objects.get(pk=id),
+        "owner": listing.owner.username == request.user.username,
     })
 
 @login_required(login_url="login")
@@ -160,3 +165,13 @@ def add_listing(request):
 
 
 
+def show_watchlist(request):
+    user = User.objects.get(username=request.user.username)
+    try:
+        watchlist = Watchlist.objects.get(user=user)
+        watchlist = watchlist.items.all()
+    except(Exception):
+        watchlist = []
+    return render(request, "auctions/listings.html",{
+        "listings":watchlist,
+    })

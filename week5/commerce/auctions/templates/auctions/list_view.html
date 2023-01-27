@@ -30,7 +30,9 @@
             {% endif %}
         </div>
         <div class="listing row col-lg-9 d-flex flex-row">
-            <img src="{{list.url}}" alt="{{list.title}}" class="img-fluid rounded col-lg-6">
+            <div class="img-container col-lg-6">
+                <img src="{{list.url}}" alt="{{list.title}}" class="img-fluid rounded">
+            </div>
             <div class="border col-lg-6 ">
                 <p class="h4 ">Description</p>
                 <p class="lead">{{list.description}}</p>
@@ -59,6 +61,11 @@
                             {% endif %}
                         {% endif %}
                     </p>
+                    {% if user.is_authenticated %}
+                        <div class="d-flex flex-row-reverse">
+                            <a href="#" class="p-2"><button class="btn btn-primary">Add to Watchlist</button></a>
+                        </div>
+                    {% endif %}
                 </div>
 
                 <div class="lower-icons">

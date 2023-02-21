@@ -13,11 +13,11 @@ Django + HTML
     
     ✅ Active Listing
     ✅ View Listing
-    ✅ Bidding System
-    ❌ Create Listing
-    ❌ My Listing
+    ❌ Bidding System
+    ✅ Create Listing
+    ✅ My Listing
     ❌ Comment on Listing
-    ❌ Watchlist
+    ⌛ Watchlist
     ❌ Categories Tab
         ❌ Active Auctions (of specific category)
 

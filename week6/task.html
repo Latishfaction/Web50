@@ -1,0 +1,31 @@
+<!-- 
+    HTML
+    input [button]
+    
+    * add task here *
+    * li
+    * li
+    * li
+
+    JS
+    > select the form
+    > extract the input "value"
+    > create an li element
+        > add the extracted input value to the new li element
+    >select the ul element and append li to it
+ -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Tasks</title>
+        <script src="tasks.js"></script>
+    </head>
+    <body>
+        <h1>Tasks</h1>
+        <form id="task-form">
+            <input type="text" id="task-value" autofocus>
+            <input type="submit" id="button" value="Submit">
+        </form>
+        <ul id="tasks"></ul>
+    </body>
+</html>

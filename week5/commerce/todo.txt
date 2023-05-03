@@ -23,4 +23,12 @@ Django + HTML
 
 ❌ Design of Website
 
-    
+
+Users Info
+
+Username    Password
+latish      123
+mili        123
+ram         123
+mohini      123
+raja        raja

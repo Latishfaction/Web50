@@ -5,6 +5,7 @@ from django.db import models
 class User(AbstractUser):
     pass
 
+
 # Auction Categories
 class Category(models.Model):
     category = models.CharField(max_length=30)
@@ -13,38 +14,45 @@ class Category(models.Model):
         return f"{self.id} : {self.category}"
 
 
-# Auctions lists
+# Total Auctions lists
 class Listing(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name="owner")
     title = models.CharField(max_length=100)
     description = models.TextField(max_length=1000)
     price = models.IntegerField()
-    url = models.URLField(max_length=400,default="https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1811/pavelstasevich181101027/pavelstasevich181101027.jpg")
-    theme = models.ForeignKey(Category, on_delete=models.CASCADE,related_name="theme")
+    url = models.URLField(
+        max_length=400,
+        default="https://us.123rf.com/450wm/pavelstasevich/pavelstasevich1811/pavelstasevich181101027/pavelstasevich181101027.jpg",
+    )
+    theme = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="theme")
     isActive = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.id} : {self.title} | {self.owner}"
 
 
-#comments
+# comments
 class Comment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name="commentor")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="commentor")
     # auto_now_add for adding time and date of comment
     # auto_now for updating time and date of comment (edit comment)
-    created_at = models.DateTimeField(auto_now_add=True,auto_now=False)
+    created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
     comment = models.TextField(max_length=500)
     # tells about commented on which listing
-    listing = models.ForeignKey(Listing, on_delete=models.CASCADE,related_name="comments")
+    listing = models.ForeignKey(
+        Listing, on_delete=models.CASCADE, related_name="comments"
+    )
 
     def __str__(self):
         return f"{self.user} : {self.listing.title} from {self.listing.theme.category} "
 
 
-# bid
+# Active Listing
 class Bid(models.Model):
-    bidder = models.ForeignKey(User, on_delete=models.CASCADE,related_name="bidder",null=True)
-    item = models.ForeignKey(Listing, on_delete=models.CASCADE,related_name="bid_item")
+    bidder = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="bidder", null=True
+    )
+    item = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="bid_item")
     bid_amount = models.PositiveIntegerField(default=0)
 
     def __str__(self):
@@ -53,8 +61,10 @@ class Bid(models.Model):
 
 # Watch list
 class Watchlist(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE,related_name="user",null=True)
-    items = models.ManyToManyField(Listing)
+    user = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="user", null=True
+    )
+    items = models.ManyToManyField(Bid)
 
     def __str__(self):
         return f"{self.user} has {len(self.items.all())} items"

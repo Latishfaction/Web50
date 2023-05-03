@@ -209,3 +209,17 @@ def show_watchlist(request):
             "listings": watchlist,
         },
     )
+
+
+def addtoWatchlists(request, listing_id):
+    listing = Listing.objects.get(id=listing_id)
+    bidding = list(Bid.objects.filter(item=listing))
+    # get latest bid to add into watchlist
+    bid_latest = bidding[-1]
+    # get the current user
+    current_user = User.objects.get(username=request.user.username)
+    new_watchlist_item = Watchlist()
+    new_watchlist_item.set(user=current_user, items=bid_latest)
+    # new_watchlist_item.save()
+    print(new_watchlist_item)
+    pass

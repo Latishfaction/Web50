@@ -24,9 +24,9 @@
         <h2>{{list.title}}</h2>
         <div>
             {% if list.isActive %}
-                <span class="badge badge-pill badge-success"> Active</span>
+            <span class="badge badge-pill badge-success"> Active</span>
             {% else %}
-                <span class="badge badge-pill badge-secondary">Inactive</span>
+            <span class="badge badge-pill badge-secondary">Inactive</span>
             {% endif %}
         </div>
         <div class="listing row col-lg-9 d-flex flex-row">
@@ -50,21 +50,22 @@
                     </div>
                     <p>
                         {% if user.is_authenticated %}
-                            {% if not owner and list.isActive %}
-                                {% if list.price == bid_info.bid_amount %}
-                                    <small class="form-text text-muted">Be the first one to bid</small>
-                                {% else %}
-                                    <small class="form-text text-muted">Started at : ₹ {{list.price}}</small> 
-                                {% endif %}
-                            {% else %}
-                                <small class="form-text text-muted">you are the owner</small>
-                            {% endif %}
+                        {% if not owner and list.isActive %}
+                        {% if list.price == bid_info.bid_amount %}
+                        <small class="form-text text-muted">Be the first one to bid</small>
+                        {% else %}
+                        <small class="form-text text-muted">Started at : ₹ {{list.price}}</small>
+                        {% endif %}
+                        {% else %}
+                        <small class="form-text text-muted">you are the owner</small>
+                        {% endif %}
                         {% endif %}
                     </p>
                     {% if user.is_authenticated %}
-                        <div class="d-flex flex-row-reverse">
-                            <a href="#" class="p-2"><button class="btn btn-primary">Add to Watchlist</button></a>
-                        </div>
+                    <div class="d-flex flex-row-reverse">
+                        <a href="{% url 'add_to_watchlist' list.id %}" class="p-2"><button class="btn btn-primary">Add
+                                to Watchlist</button></a>
+                    </div>
                     {% endif %}
                 </div>
 
@@ -73,87 +74,88 @@
                         <span class="badge badge-pill badge-warning"><span class="icon"><ion-icon
                                     name="pricetag"></ion-icon></span> {{list.theme.category}} Category</span>
                         <span class="badge badge-pill badge-info"><span class="icon"><ion-icon
-                                    name="person-circle-outline"></ion-icon></span> Owned by {{list.owner | capfirst}}</span>
-                                    
+                                    name="person-circle-outline"></ion-icon></span> Owned by
+                            {{list.owner|capfirst}}</span>
+
                     </h5>
                 </div>
             </div>
         </div>
         <div class="col-lg-3 border">
             {% if user.is_authenticated %}
-                {% if owner %}
-                    <div class="bid_direct">
-                        {% if list.isActive %}
-                        <form action="{% url 'disable_bid' list.id %}" method="post">
-                            {% csrf_token %}
-                            <input type="submit" value="Disable Bid" class="btn btn-danger bid_direct">
-                        </form>
-                        <div>
-                            show largest bid
-                            bidder info
-                            bidder amount == price
-                        </div>
-                        {% else %}
-                            <form action="{% url 'enable_bid' list.id %}" method="post">
-                                {% csrf_token %}
-                                <input type="submit" value="Enable Bid" class="btn btn-success bid_direct">
-                            </form>
-                        {% endif %}
-                    </div>
+            {% if owner %}
+            <div class="bid_direct">
+                {% if list.isActive %}
+                <form action="{% url 'disable_bid' list.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Disable Bid" class="btn btn-danger bid_direct">
+                </form>
+                <div>
+                    show largest bid
+                    bidder info
+                    bidder amount == price
+                </div>
                 {% else %}
-                    <div class="place-bid">
-                        <p class="h4">Start Bidding</p>
-                        <p>
-                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
-                                aria-expanded="false" aria-controls="collapseExample">
-                                Bid
-                            </button>
-                        </p>
-                        <p>
-                            {% if messages %}
-                                {% for message in messages %}
-                                    {% if message.tags == 'success' %}
-                                        <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                            {{message}}
-                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                          <span aria-hidden="true">&times;</span>
-                                        </button>
-                                      </div>
-                                    {% else %}
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                            {{message}}
-                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                              <span aria-hidden="true">&times;</span>
-                                            </button>
-                                          </div>
-                                    {% endif %}
-                            {% endfor %}
-                        {% endif %}
-                    </p>
-                    <div class="collapse" id="collapseExample">
-                        <div class="card card-body">
-                            {{list.id}}
-
-                            <form action="#" method="post">
-                                {% csrf_token %}
-                                <div class="form-group">
-                                    <label for="exampleInputEmail1">Enter Bid Amount</label>
-                                    <input type="number" name="bid_amount" class="form-control" id="exampleInputEmail1"
-                                        aria-describedby="emailHelp" required>
-                                    <small id="emailHelp" class="form-text text-muted">*Bid must be greater than current
-                                        amount</small>
-                                    <h5></h5>
-                                    <input type="submit" value="Place Bid" class="btn btn-primary float-right">
-                                </div>
-                            </form>
-                        </div>
-                    </div>
+                <form action="{% url 'enable_bid' list.id %}" method="post">
+                    {% csrf_token %}
+                    <input type="submit" value="Enable Bid" class="btn btn-success bid_direct">
+                </form>
+                {% endif %}
+            </div>
+            {% else %}
+            <div class="place-bid">
+                <p class="h4">Start Bidding</p>
+                <p>
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        Bid
+                    </button>
+                </p>
+                <p>
+                    {% if messages %}
+                    {% for message in messages %}
+                    {% if message.tags == 'success' %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {% else %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    {{message}}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
                 </div>
                 {% endif %}
-            {% else %}
-                <div class="bid_direct">
-                    <a href="{% url 'login' %}" class="btn btn-primary">Log in to Bid</a>
+                {% endfor %}
+                {% endif %}
+                </p>
+                <div class="collapse" id="collapseExample">
+                    <div class="card card-body">
+                        {{list.id}}
+
+                        <form action="#" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Enter Bid Amount</label>
+                                <input type="number" name="bid_amount" class="form-control" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" required>
+                                <small id="emailHelp" class="form-text text-muted">*Bid must be greater than current
+                                    amount</small>
+                                <h5></h5>
+                                <input type="submit" value="Place Bid" class="btn btn-primary float-right">
+                            </div>
+                        </form>
+                    </div>
                 </div>
+            </div>
+            {% endif %}
+            {% else %}
+            <div class="bid_direct">
+                <a href="{% url 'login' %}" class="btn btn-primary">Log in to Bid</a>
+            </div>
             {% endif %}
         </div>
     </div>

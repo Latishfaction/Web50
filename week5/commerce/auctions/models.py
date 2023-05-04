@@ -62,9 +62,9 @@ class Bid(models.Model):
 # Watch list
 class Watchlist(models.Model):
     user = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="user", null=True
+        User, on_delete=models.CASCADE, related_name="watcher", null=True
     )
-    items = models.ManyToManyField(Bid)
+    items = models.ManyToManyField(Bid, blank=True, related_name="watching")
 
     def __str__(self):
         return f"{self.user} has {len(self.items.all())} items"

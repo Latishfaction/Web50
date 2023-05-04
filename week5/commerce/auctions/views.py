@@ -77,11 +77,22 @@ def register(request):
 
 def auction_listing_view(request, id):
     listing = Listing.objects.get(pk=id)
+    user = User.objects.get(username=request.user.username)
     bid_info = list(Bid.objects.all().filter(item=listing))
+    watchlist_status = False
     if len(bid_info) <= 0:
         bid_info = None
     else:
         bid_info = bid_info[-1]
+    try:
+        item_watchlist = user.watcher.filter().last().items.all()
+        for z in item_watchlist:
+            if z.item == listing:
+                watchlist_status = True
+    except:
+        item_watchlist = []
+    # print(item_watchlist)
+    # print(watchlist_status)
     return render(
         request,
         "auctions/list_view.html",
@@ -89,6 +100,7 @@ def auction_listing_view(request, id):
             "list": listing,
             "owner": listing.owner.username == request.user.username,
             "bid_info": bid_info,
+            "Iswatchlist": watchlist_status,
         },
     )
 
@@ -215,11 +227,13 @@ def addtoWatchlists(request, listing_id):
     listing = Listing.objects.get(id=listing_id)
     bidding = list(Bid.objects.filter(item=listing))
     # get latest bid to add into watchlist
-    bid_latest = bidding[-1]
+    bid_latest = [bidding[-1]]
+    # print(bid_latest)
     # get the current user
     current_user = User.objects.get(username=request.user.username)
-    new_watchlist_item = Watchlist()
-    new_watchlist_item.set(user=current_user, items=bid_latest)
-    # new_watchlist_item.save()
-    print(new_watchlist_item)
-    pass
+    new_watchlist_item = Watchlist.objects.create(user=current_user)
+    # new_watchlist_item.items.set(bid_latest)
+    for bids in bid_latest:
+        new_watchlist_item.items.add(bids)
+    new_watchlist_item.save()
+    return HttpResponseRedirect(reverse("auction_listing_view", args=(listing_id,)))

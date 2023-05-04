@@ -63,10 +63,16 @@
                     </p>
                     {% if user.is_authenticated %}
                     <div class="d-flex flex-row-reverse">
+                        {% if Iswatchlist %}
+                        <a href="#" class="p-2"><button class="btn btn-danger">Remove from Watchlist</button></a>
+                        {% else %}
+
                         <a href="{% url 'add_to_watchlist' list.id %}" class="p-2"><button class="btn btn-primary">Add
                                 to Watchlist</button></a>
+
+                        {% endif %}
+                        {% endif %}
                     </div>
-                    {% endif %}
                 </div>
 
                 <div class="lower-icons">

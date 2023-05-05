@@ -11,7 +11,9 @@ Django + HTML
         ✅ AuctionListing
         ✅ Watchlist
     
-    ✅ Active Listing
+    ❌ Active Listing
+        ❌ OPTIMIZATIONS
+                    ❌ if the entry is already existed then add item to it instead of creating new entry 
     ✅ View Listing
     ❌ Bidding System
     ✅ Create Listing
@@ -21,7 +23,7 @@ Django + HTML
         ✅ Add to Watch list 
             ✅ OPTIMIZATIONS
                 ✅ if the entry is already existed then add item to it instead of creating new entry 
-        ❌ Remove from Watchlist 
+        ✅ Remove from Watchlist 
         ❌ Show Watchlists page 
     ❌ Categories Tab
         ❌ Active Auctions (of specific category)

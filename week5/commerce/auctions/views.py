@@ -234,10 +234,29 @@ def addtoWatchlists(request, listing_id):
 
     # find the watchlist item on existing watchlists
     try:
+        #  pick the existing item on watchlists by user
         new_watchlist_item = Watchlist.objects.filter(user=current_user).last()
     except:
+        # otherwise create new user entry
         new_watchlist_item = Watchlist.objects.create(user=current_user)
     for bids in bid_latest:
         new_watchlist_item.items.add(bids)
+    new_watchlist_item.save()
+    return HttpResponseRedirect(reverse("auction_listing_view", args=(listing_id,)))
+
+
+def removeWatchlist_item(request, listing_id):
+    # get the item from listing_id
+    listing = Listing.objects.get(id=listing_id)
+    bidding = list(Bid.objects.filter(item=listing))
+    # find the watchlists item
+    new_watchlist_item = Watchlist.objects.filter(
+        user=User.objects.get(username=request.user.username)
+    ).last()
+    # remove the specified item
+    bid_latest = [bidding[-1]]
+    for bids in bid_latest:
+        new_watchlist_item.items.remove(bids)
+
     new_watchlist_item.save()
     return HttpResponseRedirect(reverse("auction_listing_view", args=(listing_id,)))

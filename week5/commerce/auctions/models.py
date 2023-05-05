@@ -55,6 +55,8 @@ class Bid(models.Model):
     item = models.ForeignKey(Listing, on_delete=models.CASCADE, related_name="bid_item")
     bid_amount = models.PositiveIntegerField(default=0)
 
+    highest_bid = models.PositiveIntegerField(blank=True, default=0)
+
     def __str__(self):
         return f"{self.id} : {self.bid_amount} | {self.bidder} | {self.item.title}"
 

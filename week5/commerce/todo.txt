@@ -11,11 +11,13 @@ Django + HTML
         ✅ AuctionListing
         ✅ Watchlist
     
-    ❌ Active Listing
-        ❌ OPTIMIZATIONS
-                    ❌ if the entry is already existed then add item to it instead of creating new entry 
+    ✅ Active Listing
     ✅ View Listing
     ❌ Bidding System
+        ✅enable/disable bid
+            ✅OPTIMIZATIONS
+                ✅ if the entry is already existed then add item to it instead of creating new entry 
+                ❌ While disabling the bid, check for any bid of the item, if there is no bid then delete the bid. 
     ✅ Create Listing
     ✅ My Listing
     ❌ Comment on Listing
@@ -24,7 +26,7 @@ Django + HTML
             ✅ OPTIMIZATIONS
                 ✅ if the entry is already existed then add item to it instead of creating new entry 
         ✅ Remove from Watchlist 
-        ❌ Show Watchlists page 
+        ✅ Show Watchlists page 
     ❌ Categories Tab
         ❌ Active Auctions (of specific category)
 

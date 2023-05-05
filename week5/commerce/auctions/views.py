@@ -114,12 +114,17 @@ def disable_bid(request, id):
 
 def enable_bid(request, id):
     listing = Listing.objects.get(pk=id)
-    # make bid on that item
-    new_bid = Bid()
-    new_bid.bidder = User.objects.get(username=request.user.username)
-    new_bid.item = listing
-    new_bid.bid_amount = listing.price
-    new_bid.save()
+
+    try:
+        new_bid = listing.bid_item.last()
+        new_bid.save()
+    except:
+        # make bid on that item
+        new_bid = Bid()
+        new_bid.bidder = User.objects.get(username=request.user.username)
+        new_bid.item = listing
+        new_bid.bid_amount = listing.price
+        new_bid.save()
     # change listing to active
     listing.isActive = True
     listing.save()
@@ -209,16 +214,19 @@ def add_listing(request):
 
 def show_watchlist(request):
     user = User.objects.get(username=request.user.username)
+    watchlistItems = []
     try:
         watchlist = Watchlist.objects.get(user=user)
         watchlist = watchlist.items.all()
+        for items in watchlist:
+            watchlistItems.append(items.item)
     except Exception:
-        watchlist = []
+        watchlistItems = []
     return render(
         request,
         "auctions/listings.html",
         {
-            "listings": watchlist,
+            "listings": watchlistItems[::-1],
         },
     )
 

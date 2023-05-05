@@ -19,8 +19,8 @@ Django + HTML
     ❌ Comment on Listing
     ⌛ Watchlist
         ✅ Add to Watch list 
-            OPTIMIZATIONS
-                ❌ if the entry is already existed then add item to it instead of creating new entry 
+            ✅ OPTIMIZATIONS
+                ✅ if the entry is already existed then add item to it instead of creating new entry 
         ❌ Remove from Watchlist 
         ❌ Show Watchlists page 
     ❌ Categories Tab

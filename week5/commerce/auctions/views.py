@@ -231,8 +231,12 @@ def addtoWatchlists(request, listing_id):
     # print(bid_latest)
     # get the current user
     current_user = User.objects.get(username=request.user.username)
-    new_watchlist_item = Watchlist.objects.create(user=current_user)
-    # new_watchlist_item.items.set(bid_latest)
+
+    # find the watchlist item on existing watchlists
+    try:
+        new_watchlist_item = Watchlist.objects.filter(user=current_user).last()
+    except:
+        new_watchlist_item = Watchlist.objects.create(user=current_user)
     for bids in bid_latest:
         new_watchlist_item.items.add(bids)
     new_watchlist_item.save()

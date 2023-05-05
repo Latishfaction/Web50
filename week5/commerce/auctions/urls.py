@@ -23,4 +23,9 @@ urlpatterns = [
         views.removeWatchlist_item,
         name="remove_watchlist_item",
     ),
+    path(
+        "categories",
+        views.show_categories,
+        name="show_categories",
+    ),
 ]

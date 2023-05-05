@@ -268,3 +268,7 @@ def removeWatchlist_item(request, listing_id):
 
     new_watchlist_item.save()
     return HttpResponseRedirect(reverse("auction_listing_view", args=(listing_id,)))
+
+
+def show_categories(request):
+    return render(request, "auctions/categories.html")

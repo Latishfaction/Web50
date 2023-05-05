@@ -28,4 +28,9 @@ urlpatterns = [
         views.show_categories,
         name="show_categories",
     ),
+    path(
+        "categories/<int:category_id>",
+        views.show_category_listing,
+        name="show_category_listing",
+    ),
 ]

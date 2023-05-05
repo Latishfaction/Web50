@@ -271,4 +271,30 @@ def removeWatchlist_item(request, listing_id):
 
 
 def show_categories(request):
-    return render(request, "auctions/categories.html")
+    category_list = Category.objects.filter()
+    return render(
+        request,
+        "auctions/categories.html",
+        {
+            "categories": category_list,
+        },
+    )
+
+
+def show_category_listing(request, category_id):
+    listing = []
+    category = Category.objects.get(id=category_id)
+    category = category.theme.all()
+    for items in category:
+        if items.isActive == False:
+            continue
+        else:
+            listing.append(items)
+    return render(
+        request,
+        "auctions/listings.html",
+        {
+            "listings": listing,
+            "err_msg": f"No Active listing on {category.first().theme.category}",
+        },
+    )

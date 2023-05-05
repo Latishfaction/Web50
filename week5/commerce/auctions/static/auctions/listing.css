@@ -6,3 +6,20 @@
     /* background-color: aquamarine; */
     /* border: 2px solid red; */
 }
+/* categories */
+.category-container{
+    padding: 10px 4px !important;
+    margin: 10px 0px 10px 30px;
+    text-align: center;
+    justify-content: center !important;
+}
+.category-container a{
+    padding: 18px 5px !important;
+    text-align: center;
+    width: 100%;
+    display: inline-block;
+    color: black;
+    background-color: #eee;
+    border-radius: 8px;
+
+}

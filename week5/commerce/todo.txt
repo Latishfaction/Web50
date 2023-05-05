@@ -20,15 +20,16 @@ Django + HTML
                 ❌ While disabling the bid, check for any bid of the item, if there is no bid then delete the bid. 
     ✅ Create Listing
     ✅ My Listing
-    ❌ Comment on Listing
-    ⌛ Watchlist
+    ⌛ Comment on Listing
+    ✅ Watchlist
         ✅ Add to Watch list 
             ✅ OPTIMIZATIONS
                 ✅ if the entry is already existed then add item to it instead of creating new entry 
         ✅ Remove from Watchlist 
         ✅ Show Watchlists page 
-    ❌ Categories Tab
-        ❌ Active Auctions (of specific category)
+    ✅ Categories Tab
+        ✅ Active Auctions (of specific category)
+        ✅ Also Shows Empty messages
 
 ❌ Design of Website
 

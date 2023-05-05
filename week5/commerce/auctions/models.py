@@ -70,3 +70,4 @@ class Watchlist(models.Model):
 
     def __str__(self):
         return f"{self.user} has {len(self.items.all())} items"
+

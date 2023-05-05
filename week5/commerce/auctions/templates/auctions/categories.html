@@ -22,9 +22,13 @@ Categories
 {% endblock %}
 
 {% block body %}
-<div class="listing-container container-fluid">
-    <div class="listing-items row">
-        this is watch list
+<div class="container">
+    <div class="row d-flex flex-row d-flex justify-content-center">
+        {% for category in categories %}
+        <div class="col-sm-2 col-lg-3 category-container">
+            <a href="{% url 'show_category_listing' category.id %}">{{category.category}}</a>
+        </div>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

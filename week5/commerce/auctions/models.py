@@ -36,11 +36,11 @@ class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="commentor")
     # auto_now_add for adding time and date of comment
     # auto_now for updating time and date of comment (edit comment)
-    created_at = models.DateTimeField(auto_now_add=True, auto_now=False)
+    created_at = models.DateTimeField(auto_now_add=False, auto_now=False)
     comment = models.TextField(max_length=500)
     # tells about commented on which listing
     listing = models.ForeignKey(
-        Listing, on_delete=models.CASCADE, related_name="comments"
+        Listing, on_delete=models.CASCADE, related_name="item_comments"
     )
 
     def __str__(self):
@@ -70,4 +70,3 @@ class Watchlist(models.Model):
 
     def __str__(self):
         return f"{self.user} has {len(self.items.all())} items"
-

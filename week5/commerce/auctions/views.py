@@ -5,8 +5,8 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-
-from .models import User, Bid, Listing, Category, Watchlist
+from datetime import datetime
+from .models import User, Bid, Listing, Category, Watchlist, Comment
 
 
 def index(request):
@@ -101,6 +101,7 @@ def auction_listing_view(request, id):
             "owner": listing.owner.username == request.user.username,
             "bid_info": bid_info,
             "Iswatchlist": watchlist_status,
+            "comments": show_comments(request, listing.id),
         },
     )
 
@@ -298,3 +299,33 @@ def show_category_listing(request, category_id):
             "err_msg": f"No Active listing on {category.first().theme.category}",
         },
     )
+
+
+# save comments
+def post_comments(request, listing_id):
+    if request.method == "POST":
+        # get item from listing_id
+        listing = Listing.objects.get(id=listing_id)
+        # get user
+        user = User.objects.get(username=request.user.username)
+        # get comment from form textarea
+        comment = request.POST["comment"]
+
+        # add values to the comment model
+        comment_entry = Comment()
+        comment_entry.user = user
+        comment_entry.comment = comment
+        comment_entry.listing = listing
+        comment_entry.created_at = datetime.now()
+
+        # save model
+        comment_entry.save()
+
+        return HttpResponseRedirect(reverse("auction_listing_view", args=(listing.id,)))
+
+
+def show_comments(request, listing_id):
+    item = Listing.objects.get(id=listing_id)
+    item = Bid.objects.get(item=item).item
+    item = item.item_comments.filter()
+    return reversed(item)

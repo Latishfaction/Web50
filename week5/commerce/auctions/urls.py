@@ -33,4 +33,14 @@ urlpatterns = [
         views.show_category_listing,
         name="show_category_listing",
     ),
+    path(
+        "<int:listing_id>/publish_comment",
+        views.post_comments,
+        name="post_comments",
+    ),
+    path(
+        "<int:listing_id>",
+        views.show_comments,
+        name="show_comments",
+    ),
 ]

@@ -169,7 +169,42 @@
     </div>
     <div class="row">
         <div class="col">
-            <h4>Similars</h4>
+            <h4>Comments</h4>
+            <div class="container">
+                <form action="{% url 'post_comments' list.id %}" method="post">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="exampleFormControlTextarea1">Write Comment</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="comment"
+                            required></textarea>
+                    </div>
+                    <input type="submit" name="submit_comment" class="btn btn-primary">
+                </form>
+            </div>
+            <!-- comments -->
+            <div class="container">
+                <div class="row d-flex flex-row d-flex justify-content-center">
+                    {% for comment in comments %}
+                    <div class="col-lg-8 col-sm-3 comment-container">
+                        <div class="card">
+                            <div class="card-body">
+                                {% if comment.listing.owner.username == comment.user.username %}
+                                <h5 class="card-title">{{comment.user.username | capfirst}} <span
+                                        class="badge badge-pill badge-info" style="font-size: 12px;">Owner</span></h5>
+                                {% else %}
+                                <h5 class="card-title">{{comment.user.username | capfirst}} </h5>
+                                {% endif %}
+                                <p class="card-text">{{comment.comment}}
+                                </p>
+                                <footer class="blockquote-footer">Created at <cite
+                                        title="Source Title">{{comment.created_at}}</cite></footer>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </div>
 </div>

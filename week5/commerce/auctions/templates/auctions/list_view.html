@@ -25,6 +25,8 @@
         <div>
             {% if list.isActive %}
             <span class="badge badge-pill badge-success"> Active</span>
+            {% elif bid_info.isFinished %}
+            <span class="badge badge-pill badge-warning">Finished</span>
             {% else %}
             <span class="badge badge-pill badge-secondary">Inactive</span>
             {% endif %}
@@ -51,10 +53,10 @@
                     <p>
                         {% if user.is_authenticated %}
                         {% if not owner and list.isActive %}
-                        {% if list.price == bid_info.bid_amount %}
+                        {% if list.price != bid_info.bid_amount %}
                         <small class="form-text text-muted">Be the first one to bid</small>
                         {% else %}
-                        <small class="form-text text-muted">Started at : ₹ {{list.price}}</small>
+                        <small class="form-text text-muted">Previous Bid : ₹ {{bid_info.bid_starting_amt}}</small>
                         {% endif %}
                         {% else %}
                         <small class="form-text text-muted">you are the owner</small>
@@ -96,20 +98,32 @@
                 {% if list.isActive %}
                 <form action="{% url 'disable_bid' list.id %}" method="post">
                     {% csrf_token %}
-                    <input type="submit" value="Disable Bid" class="btn btn-danger bid_direct">
+                    <input type="submit" value="Finish Bid" class="btn btn-danger bid_direct">
                 </form>
                 <div>
                     show largest bid
                     bidder info
                     bidder amount == price
                 </div>
+                {% elif bid_info.isFinished %}
+                <h5>Bid won by {{bid_info.bidder.username}}</h5>
+                <h5>Bid : {{list.price}}</h5>
                 {% else %}
                 <form action="{% url 'enable_bid' list.id %}" method="post">
                     {% csrf_token %}
-                    <input type="submit" value="Enable Bid" class="btn btn-success bid_direct">
+                    <input type="submit" value="Start Bid" class="btn btn-success bid_direct">
                 </form>
                 {% endif %}
             </div>
+            {% elif bid_info.isFinished %}
+            {% if bid_info.bidder.username == request.user.username %}
+            <div class="bid_direct">
+                <h4>You won this Bid</h4>
+            </div>
+
+            {% else %}
+            <h4>This bid is won by {{bid_info.bidder.username | capfirst}}</h4>
+            {% endif %}
             {% else %}
             <div class="place-bid">
                 <p class="h4">Start Bidding</p>
@@ -119,6 +133,7 @@
                         Bid
                     </button>
                 </p>
+                <!-- message start -->
                 <p>
                     {% if messages %}
                     {% for message in messages %}
@@ -140,19 +155,18 @@
                 {% endfor %}
                 {% endif %}
                 </p>
+                <!--messge end  -->
+                <!--Bid function  -->
                 <div class="collapse" id="collapseExample">
                     <div class="card card-body">
-                        {{list.id}}
-
-                        <form action="#" method="post">
+                        <form action="{% url 'place_bid' list.id %}" method="post">
                             {% csrf_token %}
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Enter Bid Amount</label>
                                 <input type="number" name="bid_amount" class="form-control" id="exampleInputEmail1"
                                     aria-describedby="emailHelp" required>
-                                <small id="emailHelp" class="form-text text-muted">*Bid must be greater than current
+                                <small id="emailHelp" class="form-text text-muted">Bid must be greater than current
                                     amount</small>
-                                <h5></h5>
                                 <input type="submit" value="Place Bid" class="btn btn-primary float-right">
                             </div>
                         </form>

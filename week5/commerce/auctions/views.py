@@ -11,11 +11,17 @@ from .models import User, Bid, Listing, Category, Watchlist, Comment
 
 def index(request):
     activeListing = Listing.objects.all().filter(isActive=True)
+    try:
+        end_auction_item = Bid.objects.filter(isFinished=True)
+    except:
+        end_auction_item = []
+    print(end_auction_item)
     return render(
         request,
         "auctions/index.html",
         {
             "activeItems": activeListing,
+            "end_auction_item": reversed(end_auction_item),
         },
     )
 
@@ -75,6 +81,7 @@ def register(request):
         return render(request, "auctions/register.html")
 
 
+@login_required(login_url="login")
 def auction_listing_view(request, id):
     listing = Listing.objects.get(pk=id)
     user = User.objects.get(username=request.user.username)
@@ -108,6 +115,15 @@ def auction_listing_view(request, id):
 
 def disable_bid(request, id):
     listing = Listing.objects.get(pk=id)
+    # get bid
+    bid = Bid.objects.filter(item=listing).last()
+    # check if bid has check
+    # if no change then delete the bid
+    if listing.price == bid.bid_amount:
+        bid.delete()
+    # if change in bid then show highest bidder details
+    bid.isFinished = True
+    bid.save()
     listing.isActive = False
     listing.save()
     return HttpResponseRedirect(reverse("auction_listing_view", args=(listing.id,)))
@@ -133,30 +149,30 @@ def enable_bid(request, id):
 
 
 @login_required(login_url="login")
-def place_bid(request, id, bidinfo):
-    listing = AuctionListing.objects.get(pk=id)
+def place_bid(request, id):
+    listing = Listing.objects.get(pk=id)
     if request.method == "POST":
         # check if bid_amount > current bid price
         bid_amount = request.POST["bid_amount"]
         bid_amount = int(bid_amount)
-        if bid_amount > bidinfo:
+        if bid_amount > listing.price:
             # setting up new bid
             bid = Bid()
             bid.bidder = User.objects.get(username=request.user.username)
             bid.item = listing
             bid.bid_amount = bid_amount
+            bid.bid_starting_amt = listing.price
             # saving item price as old bid
-            bid.old_bid = listing.item.price
             bid.save()
             # changing the auction price as bid
             listing.price = bid_amount
             listing.save()
             messages.success(request, "Bid is placed successfully! ")
-            return HttpResponseRedirect(reverse("auction_listing", args=(id,)))
+            return HttpResponseRedirect(reverse("auction_listing_view", args=(id,)))
 
         else:
-            messages.error(request, "Bid must be greater than current bid")
-            return HttpResponseRedirect(reverse("auction_listing", args=(id,)))
+            messages.error(request, "Your Bid must be greater than current bid")
+            return HttpResponseRedirect(reverse("auction_listing_view", args=(id,)))
 
 
 @login_required(login_url="login")
@@ -325,7 +341,10 @@ def post_comments(request, listing_id):
 
 
 def show_comments(request, listing_id):
-    item = Listing.objects.get(id=listing_id)
-    item = Bid.objects.get(item=item).item
-    item = item.item_comments.filter()
+    try:
+        item = Listing.objects.get(id=listing_id)
+        item = Bid.objects.filter(item=item).last().item
+        item = item.item_comments.filter()
+    except:
+        item = []
     return reversed(item)

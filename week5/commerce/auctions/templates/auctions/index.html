@@ -11,12 +11,35 @@
 <div class="listing-container container-fluid">
     <h2>Active Listings</h2>
     <div class="listing-items row">
+        {% for listing in end_auction_item %}
+        <div id="{{listing.item.id}}" class="listing-entry shadow-sm p-3 mb-5 bg-white rounded row border col-lg-5">
+            <a href="{% url 'auction_listing_view' listing.item.id %}" class="img-flex">
+                {{listing.item.id}}
+                <div class="list-image col-lg-5  border col-sm-7">
+                    <img src="{{listing.item.url}}" alt="listing.item.title" title="{{listing.item.title}}"
+                        class="item-img rounded img-fluid">
+                </div>
+                <div class="content col-lg-7 col-sm-5">
+                    <h5 class="h5 ">{{listing.item.title}}</h5>
+                    <p class="description text-muted">{{listing.item.description}}</p>
+                    <div class="price-category">
+                        <p class="btn btn-secondary lead float-right">Bid ₹ {{listing.item.price | intcomma}}</p>
+
+                        <p class="badge badge-pill badge-warning float-left pricetag"
+                            title="{{listing.theme.category}} Category"><span class="icon"><ion-icon
+                                    name="pricetag"></ion-icon></span>{{listing.item.theme.category}}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        {% endfor %}
         {% for listing in activeItems %}
         <div id="{{listing.id}}" class="listing-entry shadow-sm p-3 mb-5 bg-white rounded row border col-lg-5">
             <a href="{% url 'auction_listing_view' listing.id %}" class="img-flex">
                 {{listing.id}}
                 <div class="list-image col-lg-5  border col-sm-7">
-                    <img src="{{listing.url}}" alt="listing.title" title="{{listing.title}}" class="item-img rounded img-fluid">
+                    <img src="{{listing.url}}" alt="listing.title" title="{{listing.title}}"
+                        class="item-img rounded img-fluid">
                 </div>
                 <div class="content col-lg-7 col-sm-5">
                     <h5 class="h5 ">{{listing.title}}</h5>
@@ -24,7 +47,9 @@
                     <div class="price-category">
                         <p class="btn btn-primary lead float-right">Bid ₹ {{listing.price | intcomma}}</p>
 
-                        <p class="badge badge-pill badge-warning float-left pricetag" title="{{listing.theme.category}} Category"><span class="icon"><ion-icon name="pricetag"></ion-icon></span>{{listing.theme.category}}</p>
+                        <p class="badge badge-pill badge-warning float-left pricetag"
+                            title="{{listing.theme.category}} Category"><span class="icon"><ion-icon
+                                    name="pricetag"></ion-icon></span>{{listing.theme.category}}</p>
                     </div>
                 </div>
             </a>

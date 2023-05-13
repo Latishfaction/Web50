@@ -1,0 +1,14 @@
+⌛ Send Mail
+
+❌ Mailbox
+    ❌ Inbox
+    ❌ Archive
+    ❌ Sent
+
+❌ View Email
+
+❌ Seen and UnSeen
+
+❌ Archived and Unarchived
+
+❌ Reply

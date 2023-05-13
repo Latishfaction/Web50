@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS</title>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector("h1").innerHTML = localStorage.getItem("counter");
+            document.querySelector("button").onclick = count;
+        });
+            function count() {
+                if (! localStorage.getItem("counter")) {
+                    localStorage.setItem("counter", 0);
+                    
+                }
+                heading = document.querySelector("h1");
+                let counter = localStorage.getItem("counter");
+                heading.innerText = ++counter;
+                
+                localStorage.setItem("counter",counter);
+                
+                }
+
+        function change() {
+            let heading = document.querySelector("h1");
+            if (heading.innerText === "Hello") {
+                heading.innerText = "GoodBye";
+            }
+            else {
+                heading.innerText = "Hello";
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <h1>Hello</h1>
+    <button>count</button>
+</body>
+
+</html>

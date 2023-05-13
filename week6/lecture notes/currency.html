@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script>
+        document.addEventListener("DOMContentLoaded",()=>{
+            fetch("www.google.com")
+            .then(response =>response.text)
+            .catch(exception => alert(exception));
+        });
+
+        // fetch("https://www.boredapi.com/api/activity")
+        //     .then(response => response.json())
+        //     .then(result =>{
+        //         let activity = result.activity;
+        //         let member = result.participants;
+        //         let type= result.type;
+
+        //         document.querySelector("h1").innerHTML = activity;
+        //         document.querySelector("h2").innerHTML = `Required ${member} Member`;
+        //         document.querySelector("h3").innerHTML = `Type : ${type}`;
+                
+
+        //         document.querySelector("button").onclick = ()=>{
+        //             location.reload();
+        //         }
+
+        //     })
+        //     .catch(error => console.log('error', error));
+    </script>
+</head>
+
+<body>
+    <h1></h1>
+    <h2></h2>
+    <h3></h3>
+    <button>Next</button>
+</body>
+
+</html>

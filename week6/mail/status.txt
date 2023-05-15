@@ -1,11 +1,13 @@
 ✅ Send Mail
 
-❌ Mailbox
-    ❌ Inbox
-    ❌ Archive
-    ❌ Sent
+✅ Mailbox
+    ✅ Inbox
+    ✅ Archive
+    ✅ Sent
 
-❌ View Email
+✅ View Email
+
+❌ CSS Design
 
 ❌ Seen and UnSeen
 

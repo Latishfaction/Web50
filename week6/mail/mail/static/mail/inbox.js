@@ -38,6 +38,7 @@ function load_mailbox(mailbox) {
       data.forEach(email => {
         // create li
         const element = document.createElement('div');
+        element.className = "mail-entry";
 
         if(mailbox=="sent"){
           element.innerHTML = `${email.recipients} ${email.subject} ${email.timestamp}`;
@@ -104,10 +105,15 @@ function view_mail(email_id){
     let div = document.createElement('div');
     div.className="email_content_container";
     let elem_sender = document.createElement('h5');
+    elem_sender.className = "email_sender";
     let elem_recipients = document.createElement('h6');
+    elem_recipients.className = "email_receipients";
     let elem_subject = document.createElement('p');
+    elem_subject.className = "email_subject";
     let elem_timestamp = document.createElement('span');
+    elem_timestamp.className ="email_timestap";
     let elem_body = document.createElement('p');
+    elem_body.className ="email_body";
 
     elem_sender.innerHTML = email.sender;
     email.recipients.forEach(emails=>{

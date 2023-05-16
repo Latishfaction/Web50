@@ -104,16 +104,48 @@ function view_mail(email_id){
   .then(email=>{
     let div = document.createElement('div');
     div.className="email_content_container";
+
     let elem_sender = document.createElement('h5');
     elem_sender.className = "email_sender";
+    
     let elem_recipients = document.createElement('h6');
     elem_recipients.className = "email_receipients";
+
     let elem_subject = document.createElement('p');
     elem_subject.className = "email_subject";
+    
     let elem_timestamp = document.createElement('span');
     elem_timestamp.className ="email_timestap";
+    
     let elem_body = document.createElement('p');
     elem_body.className ="email_body";
+
+
+
+    let archive_status_btn = document.createElement("button");
+    archive_status_btn.className = "archive_btn";
+    if(email.archived){
+      archive_status_btn.innerText = "Unarchive";
+      archive_status_btn.addEventListener("click",function(){
+        archive_status(email.id,false);
+      })
+    }
+    else{
+      archive_status_btn.innerText = "Archive";
+      archive_status_btn.addEventListener("click",function(){
+        archive_status(email.id,true);
+      })
+    }
+    console.log(email);
+    let reply_btn = document.createElement("button");
+    reply_btn.className = "reply_btn";
+    // AS EMAIL OPEN  set read property to true
+    email.read = true;
+
+    reply_btn.innerText = "Reply";
+    reply_btn.addEventListener("click",function(){
+      // trigger reply 
+    })
 
     elem_sender.innerHTML = email.sender;
     email.recipients.forEach(emails=>{
@@ -125,15 +157,43 @@ function view_mail(email_id){
     elem_timestamp.innerHTML = email.timestamp;
     elem_body.innerHTML = email.body;
 
+
     //get the div
     document.querySelector(".email_content_container").appendChild(elem_sender);
     document.querySelector(".email_content_container").appendChild(elem_recipients);
     document.querySelector(".email_content_container").appendChild(elem_subject);
     document.querySelector(".email_content_container").appendChild(elem_timestamp);
     document.querySelector(".email_content_container").appendChild(elem_body);
+    document.querySelector(".email_content_container").appendChild(reply_btn);
+    document.querySelector(".email_content_container").appendChild(archive_status_btn);
+    
   })
   .catch(error=>{
     // alert("Error : ",error);
     console.log(error);
   });
+}
+
+function archive_status(id,isArchived){
+  
+  if(isArchived){
+    fetch(`/emails/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+          archived: true
+      })
+    })
+  }
+  else{
+    fetch(`/emails/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify({
+          archived: false
+      })
+    })
+  }
+
+  load_mailbox('archive');
+  document.location.reload();
+  
 }

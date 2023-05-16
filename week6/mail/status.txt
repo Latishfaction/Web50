@@ -9,8 +9,8 @@
 
 ❌ CSS Design
 
-❌ Seen and UnSeen
+✅ Seen and UnSeen
 
-❌ Archived and Unarchived
+✅ Archived and Unarchived
 
 ❌ Reply

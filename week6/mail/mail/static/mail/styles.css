@@ -1,3 +1,62 @@
 textarea {
     min-height: 400px;
 }
+#emails-view{
+    /* border: 2px solid red; */
+    padding: 15px 5px;
+}
+#emails-view h3{
+    font-size: 2rem;
+}
+
+.mail-entry{
+    /* border: 1px solid royalblue; */
+    border-radius: 4px;
+    padding: 10px;
+    margin: 13px 0px;
+    background-color: rgba(255,255,255,0.7);
+    backdrop-filter: blur(10px);
+}
+.mail-entry:hover{
+    cursor: pointer;
+}
+.mail-entry-read{
+    padding: 10px;
+    margin: 13px 0px;
+    background-color: rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 4px;
+}
+.mail-entry-read:hover{
+    cursor: pointer;
+}
+body{
+    background-image: url('https://www.wallpapers4u.org/wp-content/uploads/clouds_height_cover_14893_1920x1080.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #fff;
+    background-size: cover;
+    height: 100vh;
+}
+.email_content_container{
+    padding: 10px;
+    margin: 13px 0px;
+    background-color: rgba(255,255,255,0.3);
+    backdrop-filter: blur(10px);
+    border-radius: 4px;
+}
+.reply_btn{
+    padding: 5px 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    margin: 5px 5px;
+    border-radius: 4px;
+}
+.archive_btn{
+    padding: 6px 12px;
+    background-color: #c0c0c0;
+    border: none;
+    color: #000;
+    border-radius: 4px;
+}

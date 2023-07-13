@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Single Page</title>
+
+    <style>
+        #content{
+            display: none;
+        }
+    </style>
+
+    <script>
+        window.onpopstate = function(event){
+            showSection(event.state.section);
+        }
+        function showSection(section){
+            fetch(`/${section}`)
+            .then(response=>response.text())
+            .then(text=>{
+                document.querySelector("#content").style.display="block";
+                document.querySelector("div").innerHTML = `${text}`;
+
+                // console.log()
+            })
+            .catch(exception=>{
+                console.log(exception);
+            })
+        }
+
+        document.addEventListener("DOMContentLoaded",function(){
+            document.querySelectorAll("button").forEach(button=>{
+                button.onclick=function(){
+                    let section = button.dataset.page;
+                    // console.log(button.dataset.page);
+                    history.pushState({section:section},"",`${section}`);
+                    showSection(button.dataset.page);
+                }
+            })
+        })
+    </script>
+</head>
+<body>
+    <button data-page="1">Page 1</button>
+    <button data-page="2">Page 2</button>
+    <button data-page="3">Page 3</button>
+
+    <div id="content"></div>
+</body>
+</html>
